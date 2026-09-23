@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeLens</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">🛡️</div>
+
+        <h1>SafeLens</h1>
+
+        <p class="subtitle">
+            Phishing ve dolandırıcılık mesajlarını analiz edin.
+        </p>
+
+        <textarea
+            id="message"
+            placeholder="Şüpheli mesajı veya bağlantıyı buraya yapıştırın..."
+        ></textarea>
+
+        <button onclick="analyzeMessage()">
+            Analiz Et
+        </button>
+
+        <div id="result" class="result hidden">
+
+            <h2>Analiz Sonucu</h2>
+
+           <div class="score">
+    <span id="riskScore">0</span>/100
+</div>
+
+<div class="progress">
+    <div id="progressBar" class="progress-bar"></div>
+</div>
+
+<div id="riskLevel" class="level">
+    LOW
+</div>
+            <h3>Tespit Edilen Riskler</h3>
+
+            <ul id="riskList"></ul>
+
+        </div>
+
+    </div>
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>

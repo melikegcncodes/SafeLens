@@ -6,14 +6,30 @@ from urllib.parse import urlparse
 def analyze_urls(message):
     detected_risks = []
 
-    urls = re.findall(r"https?://\S+", message)
+    urls = re.findall(r"https?://[^\s]+", message)
 
-    suspicious_tlds = [
-        ".xyz",
-        ".top",
-        ".click",
-        ".work",
-        ".support",
+    shortener_domains = [
+        "bit.ly",
+        "tinyurl.com",
+        "t.co",
+        "is.gd",
+        "cutt.ly",
+    ]
+
+    suspicious_keywords = [
+        "login",
+        "verify",
+        "secure",
+        "account",
+        "update",
+        "confirm",
+        "bank",
+        "wallet",
+        "giris",
+        "dogrula",
+        "hesap",
+        "banka",
+        "guvenli",
     ]
 
     for url in urls:
@@ -23,23 +39,54 @@ def analyze_urls(message):
         if not hostname:
             continue
 
-        # HTTPS kontrolü
-        if parsed_url.scheme != "https":
-            detected_risks.append("Güvenli olmayan HTTP bağlantısı")
+        hostname = hostname.lower()
 
-        # Şüpheli domain uzantısı kontrolü
-        if any(hostname.endswith(tld) for tld in suspicious_tlds):
-            detected_risks.append("Şüpheli alan adı uzantısı")
+        # HTTPS kullanılmıyorsa
+        if parsed_url.scheme != "https":
+            if "Güvenli olmayan HTTP bağlantısı" not in detected_risks:
+                detected_risks.append("Güvenli olmayan HTTP bağlantısı")
 
         # Domain yerine IP adresi kullanılmış mı?
         try:
             ipaddress.ip_address(hostname)
-            detected_risks.append("Bağlantıda doğrudan IP adresi kullanımı")
+
+            if "Bağlantıda doğrudan IP adresi kullanımı" not in detected_risks:
+                detected_risks.append(
+                    "Bağlantıda doğrudan IP adresi kullanımı"
+                )
+
         except ValueError:
             pass
 
+        # URL kısaltma servisi kullanılmış mı?
+        if hostname in shortener_domains:
+            if "Kısaltılmış bağlantı kullanımı" not in detected_risks:
+                detected_risks.append("Kısaltılmış bağlantı kullanımı")
+
+        # Şüpheli kelimeler domain veya URL içinde bulunuyor mu?
+        url_lower = url.lower()
+
+        if any(keyword in url_lower for keyword in suspicious_keywords):
+            if "Bağlantıda şüpheli anahtar kelime" not in detected_risks:
+                detected_risks.append(
+                    "Bağlantıda şüpheli anahtar kelime"
+                )
+
+        # @ işareti kullanıcıyı yanıltmak için kullanılabilir
+        if "@" in parsed_url.netloc:
+            if "Bağlantıda yanıltıcı @ karakteri" not in detected_risks:
+                detected_risks.append(
+                    "Bağlantıda yanıltıcı @ karakteri"
+                )
+
+        # Punycode domain kontrolü
+        if "xn--" in hostname:
+            if "Punycode alan adı kullanımı" not in detected_risks:
+                detected_risks.append("Punycode alan adı kullanımı")
+
         # Çok uzun URL
         if len(url) > 100:
-            detected_risks.append("Aşırı uzun bağlantı")
+            if "Aşırı uzun bağlantı" not in detected_risks:
+                detected_risks.append("Aşırı uzun bağlantı")
 
     return detected_risks

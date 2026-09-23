@@ -1,6 +1,3 @@
-import re
-
-
 def analyze_message(message):
     message = message.lower()
 
@@ -12,6 +9,7 @@ def analyze_message(message):
         "son şans",
         "şimdi",
         "derhal",
+        "24 saat içinde",
     ]
 
     threat_words = [
@@ -19,6 +17,7 @@ def analyze_message(message):
         "hesabınız askıya alınacak",
         "hesabınız bloke edildi",
         "erişiminiz engellenecek",
+        "hesabınız kilitlenecek",
     ]
 
     credential_words = [
@@ -26,6 +25,16 @@ def analyze_message(message):
         "kart bilgilerinizi girin",
         "giriş yapın",
         "hesabınızı doğrulayın",
+        "kimlik bilgilerinizi girin",
+        "kart numaranızı girin",
+    ]
+
+    reward_words = [
+        "ödül kazandınız",
+        "hediye kazandınız",
+        "para kazandınız",
+        "ücretsiz hediye",
+        "çekiliş kazandınız",
     ]
 
     for word in urgency_words:
@@ -43,7 +52,9 @@ def analyze_message(message):
             detected_risks.append("Kişisel veya giriş bilgisi talebi")
             break
 
-    if re.search(r"https?://\S+", message):
-        detected_risks.append("Mesaj içerisinde bağlantı bulundu")
+    for word in reward_words:
+        if word in message:
+            detected_risks.append("Şüpheli ödül veya kazanç vaadi")
+            break
 
     return detected_risks
