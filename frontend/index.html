@@ -25,9 +25,15 @@
             placeholder="Şüpheli mesajı veya bağlantıyı buraya yapıştırın..."
         ></textarea>
 
-        <button onclick="analyzeMessage()">
-            Analiz Et
-        </button>
+        <div class="actions">
+    <button id="analyzeButton" onclick="analyzeMessage()">
+        Analiz Et
+    </button>
+
+    <button class="clear-button" onclick="clearAnalysis()">
+        Temizle
+    </button>
+</div>
 
         <div id="result" class="result hidden">
 
@@ -44,10 +50,10 @@
 <div id="riskLevel" class="level">
     LOW
 </div>
-            <h3>Tespit Edilen Riskler</h3>
+<div id="summaryCard" class="summary-card"></div>
+           <h3>Risk Analizi</h3>
 
-            <ul id="riskList"></ul>
-
+<div id="riskDetails" class="risk-details"></div>
         </div>
 
     </div>

@@ -169,3 +169,117 @@ li {
 .progress-bar.high {
     background: #ef4444;
 }
+.risk-details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.risk-card {
+    padding: 18px;
+
+    background: rgba(15, 23, 42, 0.9);
+
+    border: 1px solid #334155;
+    border-left: 4px solid #ef4444;
+
+    border-radius: 12px;
+}
+
+.risk-title {
+    margin: 0 0 15px;
+
+    color: #f87171;
+
+    font-size: 17px;
+}
+
+.risk-card p {
+    margin: 5px 0 15px;
+
+    color: #cbd5e1;
+
+    line-height: 1.6;
+}
+
+.detail-label {
+    color: #94a3b8;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+.recommendation-label {
+    color: #60a5fa;
+}
+
+.safe-card {
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: rgba(34, 197, 94, 0.1);
+
+    border: 1px solid rgba(34, 197, 94, 0.3);
+
+    color: #4ade80;
+
+    text-align: center;
+}
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.actions button {
+    margin-top: 0;
+}
+
+.clear-button {
+    background: #1e293b;
+    border: 1px solid #475569;
+}
+
+.clear-button:hover {
+    background: #334155;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.summary-card {
+    margin-top: 20px;
+    padding: 16px;
+
+    border-radius: 12px;
+
+    line-height: 1.6;
+    text-align: left;
+}
+
+.summary-card.low {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #86efac;
+}
+
+.summary-card.medium {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+}
+
+.summary-card.high {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+}

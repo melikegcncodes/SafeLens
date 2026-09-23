@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from backend.services.explanation_engine import explain_risks
 
 from backend.analyzers.message_analyzer import analyze_message
 from backend.analyzers.url_analyzer import analyze_urls
@@ -35,10 +36,12 @@ def analyze(request: AnalysisRequest):
     detected_risks = message_risks + url_risks
 
     result = calculate_risk(detected_risks)
+    risk_details = explain_risks(detected_risks)
 
     return {
         "message": request.message,
         "risk_score": result["score"],
         "risk_level": result["level"],
-        "detected_risks": detected_risks
+        "detected_risks": detected_risks,
+        "risk_details": risk_details
     }

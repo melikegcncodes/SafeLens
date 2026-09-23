@@ -1,6 +1,7 @@
 from analyzers.message_analyzer import analyze_message
 from analyzers.url_analyzer import analyze_urls
 from services.risk_engine import calculate_risk
+from services.explanation_engine import explain_risks
 
 
 def test_safe_url():
@@ -45,3 +46,15 @@ def test_normal_message():
     assert detected_risks == []
     assert result["score"] == 0
     assert result["level"] == "LOW"
+    from services.explanation_engine import explain_risks
+
+
+def test_risk_explanation():
+    risks = ["Hesap veya erişim tehdidi"]
+
+    details = explain_risks(risks)
+
+    assert len(details) == 1
+    assert details[0]["risk"] == "Hesap veya erişim tehdidi"
+    assert details[0]["why"]
+    assert details[0]["recommendation"]
