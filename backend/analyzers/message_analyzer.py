@@ -6,18 +6,29 @@ def analyze_message(message):
     urgency_words = [
         "hemen",
         "acil",
-        "son şans",
-        "şimdi",
+        "acilen",
         "derhal",
-        "24 saat içinde",
+        "hemen kontrol edin",
+        "bugün içinde",
+        "bugun icinde",
+        "gecikmeden",
     ]
 
     threat_words = [
-        "hesabınız kapatılacak",
         "hesabınız askıya alınacak",
-        "hesabınız bloke edildi",
+        "hesabiniz askiya alinacak",
+        "hesabınız kapatılacak",
+        "hesabiniz kapatilacak",
         "erişiminiz engellenecek",
-        "hesabınız kilitlenecek",
+        "erisiminiz engellenecek",
+        "erişiminiz kısıtlanacak",
+        "erisiminiz kisitlanacak",
+        "erişiminiz geçici olarak kısıtlanabilir",
+        "erisiminiz gecici olarak kisitlanabilir",
+        "hesabınız bloke edilecek",
+        "hesabiniz bloke edilecek",
+        "işlemleriniz durdurulacak",
+        "islemleriniz durdurulacak",
     ]
 
     credential_terms = [
@@ -44,40 +55,40 @@ def analyze_message(message):
         "paylaşın",
         "gir",
         "girin",
-        "ver",
-        "verin",
-        "ilet",
-        "iletin",
-        "yaz",
-        "yazın",
     ]
 
     reward_words = [
-        "ödül kazandınız",
-        "hediye kazandınız",
+        "ödül",
+        "kazandınız",
+        "kazandiniz",
+        "hediye",
+        "çekiliş",
+        "cekilis",
+        "ücretsiz",
+        "ucretsiz",
         "para kazandınız",
-        "ücretsiz hediye",
-        "çekiliş kazandınız",
+        "para kazandiniz",
     ]
 
+    # Aciliyet kontrolü
     for word in urgency_words:
         if word in message:
             detected_risks.append("Aciliyet belirten ifade")
             break
 
+    # Hesap / erişim tehdidi
     for word in threat_words:
         if word in message:
             detected_risks.append("Hesap veya erişim tehdidi")
             break
 
+    # Şifre veya kişisel bilgi talebi
     credential_detected = any(
-        term in message
-        for term in credential_terms
+        term in message for term in credential_terms
     )
 
     request_detected = any(
-        term in message
-        for term in request_terms
+        term in message for term in request_terms
     )
 
     if credential_detected and request_detected:
@@ -85,6 +96,7 @@ def analyze_message(message):
             "Kişisel veya giriş bilgisi talebi"
         )
 
+    # Ödül / kazanç vaadi
     for word in reward_words:
         if word in message:
             detected_risks.append(
