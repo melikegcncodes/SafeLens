@@ -20,13 +20,36 @@ def analyze_message(message):
         "hesabınız kilitlenecek",
     ]
 
-    credential_words = [
-        "şifrenizi girin",
-        "kart bilgilerinizi girin",
-        "giriş yapın",
-        "hesabınızı doğrulayın",
-        "kimlik bilgilerinizi girin",
-        "kart numaranızı girin",
+    credential_terms = [
+        "şifre",
+        "şifreniz",
+        "şifrenizi",
+        "sifre",
+        "parola",
+        "pin",
+        "cvv",
+        "kart numarası",
+        "kart numaranızı",
+        "kimlik bilgisi",
+        "kimlik bilgilerinizi",
+        "tc kimlik",
+    ]
+
+    request_terms = [
+        "gönder",
+        "gönderin",
+        "yolla",
+        "yollayın",
+        "paylaş",
+        "paylaşın",
+        "gir",
+        "girin",
+        "ver",
+        "verin",
+        "ilet",
+        "iletin",
+        "yaz",
+        "yazın",
     ]
 
     reward_words = [
@@ -47,14 +70,26 @@ def analyze_message(message):
             detected_risks.append("Hesap veya erişim tehdidi")
             break
 
-    for word in credential_words:
-        if word in message:
-            detected_risks.append("Kişisel veya giriş bilgisi talebi")
-            break
+    credential_detected = any(
+        term in message
+        for term in credential_terms
+    )
+
+    request_detected = any(
+        term in message
+        for term in request_terms
+    )
+
+    if credential_detected and request_detected:
+        detected_risks.append(
+            "Kişisel veya giriş bilgisi talebi"
+        )
 
     for word in reward_words:
         if word in message:
-            detected_risks.append("Şüpheli ödül veya kazanç vaadi")
+            detected_risks.append(
+                "Şüpheli ödül veya kazanç vaadi"
+            )
             break
 
     return detected_risks

@@ -283,3 +283,89 @@ button:disabled {
     border: 1px solid rgba(239, 68, 68, 0.25);
     color: #fca5a5;
 }
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin: 22px 0;
+
+    color: #64748b;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #334155;
+}
+
+.image-upload {
+    padding: 20px;
+
+    border: 1px dashed #475569;
+    border-radius: 14px;
+
+    background: rgba(2, 6, 23, 0.4);
+
+    text-align: center;
+}
+
+.upload-label {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    background: #1e293b;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.upload-label:hover {
+    background: #334155;
+}
+
+.upload-info {
+    margin: 12px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 350px;
+
+    object-fit: contain;
+
+    margin-top: 18px;
+
+    border-radius: 10px;
+
+    border: 1px solid #334155;
+}
+
+.ocr-status {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background: rgba(59, 130, 246, 0.08);
+
+    color: #93c5fd;
+}

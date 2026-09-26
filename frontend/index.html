@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+   
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>SafeLens</title>
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
 </head>
 
 <body>
 
     <div class="container">
 
-        <div class="logo">🛡️</div>
+        <div class="logo">
+            🛡️
+        </div>
 
         <h1>SafeLens</h1>
 
@@ -20,45 +32,138 @@
             Phishing ve dolandırıcılık mesajlarını analiz edin.
         </p>
 
+
+        <!-- MESAJ ALANI -->
+
         <textarea
             id="message"
             placeholder="Şüpheli mesajı veya bağlantıyı buraya yapıştırın..."
         ></textarea>
 
+
+        <!-- VEYA -->
+
+        <div class="divider">
+            <span>veya</span>
+        </div>
+
+
+        <!-- GÖRSEL YÜKLEME -->
+
+        <div class="image-upload">
+
+            <label
+                for="imageInput"
+                class="upload-label"
+            >
+                📷 Ekran Görüntüsü Yükle
+            </label>
+
+            <input
+                type="file"
+                id="imageInput"
+                accept="image/png, image/jpeg, image/webp"
+                hidden
+            >
+
+            <p class="upload-info">
+                WhatsApp, SMS veya e-posta ekran görüntüsü
+            </p>
+
+            <img
+                id="imagePreview"
+                class="image-preview hidden"
+                alt="Yüklenen ekran görüntüsü"
+            >
+
+            <div
+                id="ocrStatus"
+                class="ocr-status hidden"
+            ></div>
+
+        </div>
+
+
+        <!-- BUTONLAR -->
+
         <div class="actions">
-    <button id="analyzeButton" onclick="analyzeMessage()">
-        Analiz Et
-    </button>
 
-    <button class="clear-button" onclick="clearAnalysis()">
-        Temizle
-    </button>
-</div>
+            <button
+                id="analyzeButton"
+                onclick="analyzeMessage()"
+            >
+                Analiz Et
+            </button>
 
-        <div id="result" class="result hidden">
+            <button
+                class="clear-button"
+                onclick="clearAnalysis()"
+            >
+                Temizle
+            </button>
 
-            <h2>Analiz Sonucu</h2>
+        </div>
 
-           <div class="score">
-    <span id="riskScore">0</span>/100
-</div>
 
-<div class="progress">
-    <div id="progressBar" class="progress-bar"></div>
-</div>
+        <!-- SONUÇ -->
 
-<div id="riskLevel" class="level">
-    LOW
-</div>
-<div id="summaryCard" class="summary-card"></div>
-           <h3>Risk Analizi</h3>
+        <div
+            id="result"
+            class="result hidden"
+        >
 
-<div id="riskDetails" class="risk-details"></div>
+            <h2>
+                Analiz Sonucu
+            </h2>
+
+            <div class="score">
+                <span id="riskScore">0</span>/100
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+            </div>
+
+            <div
+                id="riskLevel"
+                class="level"
+            >
+                LOW
+            </div>
+
+            <div
+                id="summaryCard"
+                class="summary-card"
+            ></div>
+
+            <h3>
+                Risk Analizi
+            </h3>
+
+            <div
+                id="riskDetails"
+                class="risk-details"
+            ></div>
+
         </div>
 
     </div>
 
+
+    <!-- OCR -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js">
+    </script>
+
+
+    <!-- SAFELENS JAVASCRIPT -->
+
     <script src="/static/app.js"></script>
 
 </body>
+
 </html>

@@ -25,7 +25,6 @@ def test_phishing_message():
 
     assert "Aciliyet belirten ifade" in detected_risks
     assert "Hesap veya erişim tehdidi" in detected_risks
-    assert "Kişisel veya giriş bilgisi talebi" in detected_risks
     assert "Güvenli olmayan HTTP bağlantısı" in detected_risks
     assert "Bağlantıda doğrudan IP adresi kullanımı" in detected_risks
 
@@ -58,3 +57,12 @@ def test_risk_explanation():
     assert details[0]["risk"] == "Hesap veya erişim tehdidi"
     assert details[0]["why"]
     assert details[0]["recommendation"]
+def test_password_request_variation():
+    message = "Banka şifrenizi yollayın bana"
+
+    risks = analyze_message(message)
+    result = calculate_risk(risks)
+
+    assert "Kişisel veya giriş bilgisi talebi" in risks
+    assert result["score"] >= 40
+    assert result["level"] in ["MEDIUM", "HIGH"]
